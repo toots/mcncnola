@@ -1,0 +1,64 @@
+version: "3"
+services:
+  jack:
+    image: mcncnola/mcncnola
+    entrypoint: jackd -d alsa -d hw:1 -p2048 -n3
+    environment:
+      - JACK_NO_AUDIO_RESERVATION=1
+    cap_add:
+      - SYS_NICE
+    ulimits:
+      rtprio: 95
+      memlock: -1
+    shm_size: 256m
+    ipc: host
+    privileged: true
+    volumes:
+      - type: bind
+        source: /dev
+        target: /dev
+  supercollider:
+    image: mcncnola/mcncnola
+    entrypoint: sclang -D
+    cap_add:
+      - SYS_NICE
+    ulimits:
+      rtprio: 95
+      memlock: -1
+    shm_size: 256m
+    ipc: host
+    privileged: true
+    depends_on:
+      - jack
+    volumes:
+      - type: bind
+        source: /dev
+        target: /dev
+    network_mode: host
+  jack-matchmaker:
+    image: mcncnola/mcncnola
+    entrypoint: jack-matchmaker -p /usr/local/mcncnola/jack-matchmaker.conf
+    ipc: host
+    depends_on:
+      - jack
+    volumes:
+      - type: bind
+        source: /dev
+        target: /dev
+  troop-server:
+    image: mcncnola/mcncnola
+    entrypoint: python3 /usr/local/mcncnola/Troop/run-server.py -p 57890 -P ''
+    network_mode: host
+  xvfb:
+    image: mcncnola/mcncnola
+    entrypoint: Xvfb -ac -listen tcp :99
+    network_mode: host
+  troop-client:
+    image: mcncnola/mcncnola
+    entrypoint: /bin/sh -c "sleep 1 && python3 /usr/local/mcncnola/Troop/run-client.py -i -H localhost -P 57890 -m FoxDot -n pi"
+    environment:
+      - DISPLAY=localhost:99
+    network_mode: host
+    depends_on:
+      - troop-server
+      - xvfb

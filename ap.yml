@@ -1,0 +1,11 @@
+version: "3"
+services:
+  ap:
+    image: mcncnola/mcncnola
+    entrypoint: /usr/local/bin/wlanstart.sh
+    privileged: true
+    environment:
+      - SSID=mcncnola
+      - WPA_PASSPHRASE=nerdzyall
+      - INTERFACE=wlan0
+    network_mode: host
