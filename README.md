@@ -17,7 +17,7 @@ Based on this image, the [docker-compose](https://github.com/docker/compose) fil
 * A troop server
 * A troop client running inside a `Xvfb` dummy X server
 * A (currently unused) [jack-matchmatcher](https://github.com/SpotlightKid/jack-matchmaker) runner, which can be used to automatically connect added jack ports
-* An option support for running the wifi access point for the Raspberry Pi
+* An optional support for running the wifi access point for the Raspberry Pi
 
 While the project is dedicated to Raspberry Pi, it should be re-usable with other platorms.
 
