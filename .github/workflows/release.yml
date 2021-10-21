@@ -6,19 +6,31 @@ on:
       - main
 
 jobs:
+  cancel_previous_run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
+
   build_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Checkout modules
+        run: |
+          make submodules
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Build Raspberry Pi image
-        run: |
-          make build-pi 
-      - name: Push to github
-        run: |
-          docker tag mcncnola/mcncnola ghcr.io/toots/mcncnola
-          docker push ghcr.io/toots/mcncnola
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64, linux/arm/v6
+          push: true
+          tags: |
+            ghcr.io/toots/mcncnola:latest
