@@ -1,6 +1,6 @@
 # mcncnola
 
-This repository provides a `docker` build and `docker-compose` setup to run a [supercollider](https://supercollider.github.io/) backend connected to a
+This repository provides a [docker](https://www.docker.com/) build and [docker-compose](https://github.com/docker/compose) setup to run a [supercollider](https://supercollider.github.io/) backend connected to a
 [Troop](https://github.com/Qirky/Troop) server playing live [FoxDot](https://github.com/Qirky/FoxDot) commands to the local soundcard on a
 [Raspberry Pi](https://www.raspberrypi.org/).
 
@@ -9,9 +9,9 @@ and access point so that it becomes a wifi hub availabe to any location where it
 
 ## Content
 
-The project provides a single `Dockerfile` which builds a [docker](https://www.docker.com/) image optimized for size with all required parts.
+The project provides a single `Dockerfile` which builds a docker image optimized for size with all required parts.
 
-Based on this image, the [docker-compose](https://github.com/docker/compose) files provide:
+Based on this image, the docker-compose files provide:
 * A [jack](https://jackaudio.org/) server connected to ALSA
 * A supercollider server connected to jack and waiting for commands from troop
 * A troop server
