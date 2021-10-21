@@ -4,7 +4,7 @@ This repository provides a `docker` build and `docker-compose` setup to run a [s
 [Troop](https://github.com/Qirky/Troop) server playing live [FoxDot](https://github.com/Qirky/FoxDot) commands to the local soundcard on a
 [Raspberry Pi](https://www.raspberrypi.org/).
 
-It can be used to connect multiple clients and create a laptop orchestra with the Raspberry Pi as the master! The Raspberry Pi can even be turned into
+It can be used to connect multiple clients and create a laptop orchestra with the Raspberry Pi as the main! The Raspberry Pi can even be turned into
 and access point so that it becomes a wifi hub availabe to any location where it is plugged!
 
 ## Content
